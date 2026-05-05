@@ -1,4 +1,4 @@
-references
+/references/
 /AGENTS.md
 /agent.md
 /docs/internal/
@@ -7,3 +7,6 @@ references
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Local runtime state
+.local-state/

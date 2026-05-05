@@ -2,15 +2,22 @@
 title: "GitHub Issue 指南"
 ---
 
+import SupportCTA from "/snippets/support-cta-zh-Hans.mdx";
+
+<SupportCTA />
+
 当你有一个具体的仓库工作项时，请使用 GitHub issue；不要只是提出一个早期问题。
 
 如果请求仍处于探索阶段，请先使用 [Support](https://github.com/Prompthon-IO/agent-systems-handbook/blob/main/zh-Hans/SUPPORT.md) 或社区 Discord。如果工作已经明确范围，请使用匹配的 issue 表单，这样请求会以可审阅的形式进入流程。
+
+从支持问题、issue 认领，到 fork 或分支、pull request 的完整顺序，请阅读
+[贡献者基础 GitHub 流程](/zh-Hans/contributor-kit/contribution-workflow)。
 
 ## 选择正确的 issue 表单
 
 - `Content Proposal`：新的实验室页面、重大修订、雷达笔记、精选参考说明，或发布后的后续内容
 - `Source Project Proposal`：新的或经过大幅修订的、由仓库拥有的 starter，或位于允许的 lane-local `examples/` 文件夹下的示例
-- `Practitioner Skill Package`：位于 `skills/` 下的新建或大幅修订的 Codex 兼容技能包。这类 issue 是代码加文档的贡献，不是纯文档 issue。
+- `Practitioner Skill Package`：位于 `skills/` 下的新建或大幅修订的 local-agent workflow package。这类 issue 是代码加文档的贡献，不是纯文档 issue。
 - `Repository Feature Or Process Proposal`：关于仓库工作流、issue 接收、模板、标签、审查规则、贡献者文档或维护者运营的功能请求
 - `Bug Or Broken Surface Report`：损坏的链接、事实问题、示例缺陷、模板问题，或仓库工作流回归
 
@@ -41,9 +48,13 @@ Claim request:
 
 GitHub 原生 assignment 功能受权限约束：拥有写权限的人可以分配 issue；可被分配的人包括自己、评论者、拥有写权限的用户，以及拥有读权限的组织成员。在本仓库中，assignee 表示内部贡献者信号。
 
+认领被确认后，请按照
+[贡献者基础 GitHub 流程](/zh-Hans/contributor-kit/contribution-workflow)
+完成 fork、分支、pull request 和 review 步骤。
+
 ## 一个好的 skill package issue 应包含什么
 
-当工作是在 `skills/` 下创建或修订可安装技能包时，请使用 `Practitioner Skill Package` 表单。
+当工作是在 `skills/` 下创建或修订可安装的 local-agent workflow package 时，请使用 `Practitioner Skill Package` 表单。
 
 好的提交通常包括：
 

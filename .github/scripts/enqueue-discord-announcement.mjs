@@ -104,9 +104,6 @@ function channelIdFor(key) {
   if (key === "good-first-issues-feed") {
     return process.env.DISCORD_GOOD_FIRST_ISSUES_CHANNEL_ID || null;
   }
-  if (key === "contribute") {
-    return process.env.DISCORD_CONTRIBUTE_FORUM_CHANNEL_ID || null;
-  }
   if (key === "code-review") {
     return process.env.DISCORD_CODE_REVIEW_CHANNEL_ID || process.env.DISCORD_PULL_REQUESTS_CHANNEL_ID || null;
   }
@@ -246,7 +243,30 @@ async function buildPushJobs(event) {
   });
 
   if (pullRequest) {
-    return [];
+    return [
+      makeJob({
+        authorLogin: pullRequest.user?.login || null,
+        branch,
+        changeSummary: truncate(firstParagraph(pullRequest.body), 700) || `Merged PR #${pullRequest.number}.`,
+        channelKey: "repo-updates",
+        commitSha: sha,
+        dedupeKey: `${repoFullName}:pr:${pullRequest.number}:merged:repo-updates`,
+        eventType: "github_pr_merged",
+        mergedByLogin: pullRequest.merged_by?.login ||
+          event.head_commit?.committer?.username ||
+          process.env.GITHUB_ACTOR ||
+          null,
+        payloadJson: {
+          pull_request: pullRequest,
+          sourceUrl: pullRequest.html_url,
+        },
+        prNumber: pullRequest.number,
+        prTitle: pullRequest.title,
+        prUrl: pullRequest.html_url,
+        repoFullName,
+        repoUrl,
+      }),
+    ];
   }
 
   const before = event.before || runGit(["rev-parse", `${sha}^`], "");
@@ -302,7 +322,6 @@ function buildIssueJobs(event) {
   const issueNumber = issue.number;
   const issueSummary = truncate(firstParagraph(issue.body), 700);
   const commonPayload = {
-    forumTagNames: ["good-first-issue"],
     issue,
     issueSummary,
     issueUrl: issue.html_url,
@@ -323,41 +342,11 @@ function buildIssueJobs(event) {
         repoFullName,
         repoUrl,
       }),
-      makeJob({
-        authorLogin: event.sender?.login || issue.user?.login || null,
-        changeSummary: issueSummary || "A new contributor-friendly issue is ready.",
-        channelKey: "contribute",
-        dedupeKey: `${repoFullName}:issue:${issueNumber}:contribute-thread`,
-        eventType: "github_issue_contribute_thread",
-        payloadJson: commonPayload,
-        prNumber: issueNumber,
-        prTitle: issue.title,
-        prUrl: issue.html_url,
-        repoFullName,
-        repoUrl,
-      }),
     ];
   }
 
   if (action === "closed") {
-    return [
-      makeJob({
-        authorLogin: event.sender?.login || null,
-        changeSummary: `Issue closed: ${issue.title}`,
-        channelKey: "contribute",
-        dedupeKey: `${repoFullName}:issue:${issueNumber}:archive:${issue.closed_at || process.env.GITHUB_RUN_ID || "closed"}`,
-        eventType: "github_issue_closed_archive_thread",
-        payloadJson: {
-          ...commonPayload,
-          sourceDedupeKey: `${repoFullName}:issue:${issueNumber}:contribute-thread`,
-        },
-        prNumber: issueNumber,
-        prTitle: issue.title,
-        prUrl: issue.html_url,
-        repoFullName,
-        repoUrl,
-      }),
-    ];
+    return [];
   }
 
   return [];
@@ -367,6 +356,10 @@ function buildPullRequestJobs(event) {
   const action = event.action;
   const pullRequest = event.pull_request;
   if (!pullRequest) {
+    return [];
+  }
+  const baseRef = pullRequest.base?.ref;
+  if (!["develop", "main"].includes(baseRef)) {
     return [];
   }
 
@@ -391,6 +384,10 @@ function buildPullRequestJobs(event) {
         repoUrl,
       }),
     ];
+  }
+
+  if (baseRef !== "main") {
+    return [];
   }
 
   if (action === "closed" && pullRequest.merged) {
@@ -446,6 +443,17 @@ function publicJobSummary(job) {
   };
 }
 
+function isForkPullRequestJob(job) {
+  if (job.payloadJson?.eventName !== "pull_request") {
+    return false;
+  }
+
+  const headRepoFullName = normalizeGitHubRepoFullName(
+    job.payloadJson?.pull_request?.head?.repo?.full_name,
+  );
+  return Boolean(headRepoFullName && headRepoFullName !== job.repoFullName);
+}
+
 function wantsSsl(databaseUrl) {
   return /(?:[?&]ssl=true|[?&]sslmode=(?:require|prefer|verify-ca|verify-full))/i.test(
     databaseUrl,
@@ -455,6 +463,10 @@ function wantsSsl(databaseUrl) {
 async function enqueueJob(job) {
   const databaseUrl = process.env.PATHWAY_DISCORD_ANNOUNCER_DATABASE_URL;
   if (!databaseUrl) {
+    if (process.env.GITHUB_ACTIONS === "true" && isForkPullRequestJob(job)) {
+      return { skipped: true, reason: "fork_pull_request_secrets_unavailable" };
+    }
+
     const message = "Missing required PATHWAY_DISCORD_ANNOUNCER_DATABASE_URL secret; cannot enqueue Discord announcement job.";
     if (process.env.GITHUB_ACTIONS === "true") {
       console.error(`::error::${message}`);

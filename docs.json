@@ -2,6 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
   "name": "Agent Systems Handbook by Prompthon",
+  "description": "A practical AI agents handbook for students, practitioners, and builders exploring agent systems, agentic workflows, context engineering, MCP, A2A, evaluation, observability, and multi-agent architecture.",
   "logo": {
     "light": "https://github.com/Prompthon-IO.png?size=96",
     "dark": "https://github.com/Prompthon-IO.png?size=96",
@@ -38,36 +39,6 @@
                   "reading-paths/environment-setup",
                   "reading-paths/sample-projects",
                   "skills/index"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "Workshops",
-            "icon": "graduation-cap",
-            "groups": [
-              {
-                "group": "Workshop tracks",
-                "pages": [
-                  "workshops/index",
-                  "workshops/openclaw/index"
-                ]
-              },
-              {
-                "group": "OpenClaw",
-                "pages": [
-                  "workshops/openclaw/install-windows",
-                  "workshops/openclaw/install-mac",
-                  "workshops/openclaw/accounts-and-onboarding",
-                  "workshops/openclaw/commands"
-                ]
-              },
-              {
-                "group": "Desktop agents and skills",
-                "pages": [
-                  "workshops/desktop-agents/codex",
-                  "workshops/desktop-agents/claude-code",
-                  "workshops/skills-introduction"
                 ]
               }
             ]
@@ -118,6 +89,7 @@
                 "pages": [
                   "case-studies/index",
                   "case-studies/deep-research-agents",
+                  "case-studies/coding-agents",
                   "case-studies/customer-support-agents"
                 ]
               },
@@ -131,6 +103,31 @@
                   "radar/2026-04-local-agent-watch",
                   "radar/2026-04-interoperability-watch",
                   "radar/2026-04-protocol-watch"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Events",
+            "icon": "calendar-days",
+            "groups": [
+              {
+                "group": "Events",
+                "pages": [
+                  "workshops/index"
+                ]
+              },
+              {
+                "group": "Workshop materials",
+                "pages": [
+                  "workshops/openclaw/index",
+                  "workshops/openclaw/install-windows",
+                  "workshops/openclaw/install-mac",
+                  "workshops/openclaw/accounts-and-onboarding",
+                  "workshops/openclaw/commands",
+                  "workshops/desktop-agents/codex",
+                  "workshops/desktop-agents/claude-code",
+                  "workshops/skills-introduction"
                 ]
               }
             ]
@@ -160,9 +157,11 @@
               {
                 "group": "Public workflow",
                 "pages": [
+                  "contributor-kit/start-here",
                   "contributor-kit/index",
                   "contributor-kit/lab-structure",
                   "contributor-kit/local-debugging",
+                  "contributor-kit/contribution-workflow",
                   "contributor-kit/github-issue-guide",
                   "contributor-kit/review-checklist"
                 ]
@@ -173,7 +172,9 @@
                   "contributor-kit/article-guidelines",
                   "contributor-kit/radar-note-guidelines",
                   "contributor-kit/source-project-guidelines",
-                  "contributor-kit/reference-note-guidelines"
+                  "contributor-kit/reference-note-guidelines",
+                  "contributor-kit/skill-package-guidelines",
+                  "contributor-kit/discord-activity-record"
                 ]
               },
               {
@@ -262,36 +263,6 @@
             ]
           },
           {
-            "tab": "工作坊",
-            "icon": "graduation-cap",
-            "groups": [
-              {
-                "group": "工作坊路线",
-                "pages": [
-                  "zh-Hans/workshops/index",
-                  "zh-Hans/workshops/openclaw/index"
-                ]
-              },
-              {
-                "group": "OpenClaw",
-                "pages": [
-                  "zh-Hans/workshops/openclaw/install-windows",
-                  "zh-Hans/workshops/openclaw/install-mac",
-                  "zh-Hans/workshops/openclaw/accounts-and-onboarding",
-                  "zh-Hans/workshops/openclaw/commands"
-                ]
-              },
-              {
-                "group": "桌面智能体与 Skills",
-                "pages": [
-                  "zh-Hans/workshops/desktop-agents/codex",
-                  "zh-Hans/workshops/desktop-agents/claude-code",
-                  "zh-Hans/workshops/skills-introduction"
-                ]
-              }
-            ]
-          },
-          {
             "tab": "手册",
             "icon": "book-open",
             "groups": [
@@ -337,6 +308,7 @@
                 "pages": [
                   "zh-Hans/case-studies/index",
                   "zh-Hans/case-studies/deep-research-agents",
+                  "zh-Hans/case-studies/coding-agents",
                   "zh-Hans/case-studies/customer-support-agents"
                 ]
               },
@@ -347,6 +319,31 @@
                   "zh-Hans/radar/2026-04-local-agent-watch",
                   "zh-Hans/radar/2026-04-interoperability-watch",
                   "zh-Hans/radar/2026-04-protocol-watch"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "活动",
+            "icon": "calendar-days",
+            "groups": [
+              {
+                "group": "活动",
+                "pages": [
+                  "zh-Hans/workshops/index"
+                ]
+              },
+              {
+                "group": "工作坊材料",
+                "pages": [
+                  "zh-Hans/workshops/openclaw/index",
+                  "zh-Hans/workshops/openclaw/install-windows",
+                  "zh-Hans/workshops/openclaw/install-mac",
+                  "zh-Hans/workshops/openclaw/accounts-and-onboarding",
+                  "zh-Hans/workshops/openclaw/commands",
+                  "zh-Hans/workshops/desktop-agents/codex",
+                  "zh-Hans/workshops/desktop-agents/claude-code",
+                  "zh-Hans/workshops/skills-introduction"
                 ]
               }
             ]
@@ -376,9 +373,11 @@
               {
                 "group": "公开协作流程",
                 "pages": [
+                  "zh-Hans/contributor-kit/start-here",
                   "zh-Hans/contributor-kit/index",
                   "zh-Hans/contributor-kit/lab-structure",
                   "zh-Hans/contributor-kit/local-debugging",
+                  "zh-Hans/contributor-kit/contribution-workflow",
                   "zh-Hans/contributor-kit/github-issue-guide",
                   "zh-Hans/contributor-kit/review-checklist"
                 ]
@@ -389,7 +388,9 @@
                   "zh-Hans/contributor-kit/article-guidelines",
                   "zh-Hans/contributor-kit/radar-note-guidelines",
                   "zh-Hans/contributor-kit/source-project-guidelines",
-                  "zh-Hans/contributor-kit/reference-note-guidelines"
+                  "zh-Hans/contributor-kit/reference-note-guidelines",
+                  "zh-Hans/contributor-kit/skill-package-guidelines",
+                  "zh-Hans/contributor-kit/discord-activity-record"
                 ]
               },
               {
@@ -474,6 +475,16 @@
         }
       }
     ]
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-K26DVPPVLY"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "google-site-verification": "LlDE8i_8_vKcs6sx68AgnM9ZOjjMQEJXrq7nDZMOdjg"
+    }
   },
   "contextual": {
     "options": [
